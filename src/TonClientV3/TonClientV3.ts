@@ -9,7 +9,8 @@ import {
     storeMessage,
     toNano,
     comment,
-    TupleItem
+    TupleItem,
+    StateInit
 } from "@ton/core";
 import { Maybe } from "@ton/core/dist/utils/maybe";
 import { TonHttpApiV3, TonHttpApiV3Parameters } from "../TonHttpApiV3/TonHttpApiV3";
@@ -62,12 +63,12 @@ export class TonClientV3 {
      * @param address
      * @param [init={ code, data }]
      */
-    provider(address: Address, init?: { code: Cell, data: Cell } | null) {
+    provider(address: Address, init?: StateInit | null) {
         return createProvider(this, address, init ? init : null);
     }
 }
 
-function createProvider(client: TonClientV3, address: Address, init: { code: Cell, data: Cell } | null) : ContractProvider {
+function createProvider(client: TonClientV3, address: Address, init: StateInit | null) : ContractProvider {
     return {
         async getState() {
             const data = await client.api.getAccount(address.toString());
@@ -125,7 +126,7 @@ function createProvider(client: TonClientV3, address: Address, init: { code: Cel
 
         async external(message) {
             // resolve init
-            let neededInit: { code: Cell | null, data: Cell | null } | null = null;
+            let neededInit: StateInit | null = null;
             if (init && (!await client.isContractDeployed(address))) {
                 neededInit = init;
             }
@@ -147,7 +148,7 @@ function createProvider(client: TonClientV3, address: Address, init: { code: Cel
 
         async internal(via, message) {
             // resolve init
-            let neededInit: { code: Cell | null, data: Cell | null } | null = null;
+            let neededInit: StateInit | null = null;
             if (init && (!await client.isContractDeployed(address))) {
                 neededInit = init;
             }
