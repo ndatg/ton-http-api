@@ -8,7 +8,7 @@ import Logger from "pino";
 
 const main = async () => {
     const api = new TonHttpApiV3({
-        endpoint: "https://toncenter.com/",
+        endpoint: "https://stage.toncenter.com/",
         apiKey: ""
     });
 
@@ -47,9 +47,9 @@ const main = async () => {
                         limit: 256,
                         offset
                     });
-                    transactions = [...transactions, ...data];
+                    transactions = [...transactions, ...data.transactions];
 
-                    if (data.length < 256) {
+                    if (data.transactions.length < 256) {
                         stopped = true;
                         break;
                     }

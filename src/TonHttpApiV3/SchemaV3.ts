@@ -31,14 +31,20 @@ export type AccountBalance = z.infer<typeof accountBalance>;
 // AccountState
 export const accountState = z.object({
     hash: z.string(),
-    account: z.string(),
-    balance: z.string(),
-    account_status: accountStatus,
+    // account: z.string(),
+    balance: z.string().nullable(),
+    account_status: accountStatus.nullable(),
     frozen_hash: z.string().nullable(),
     code_hash: z.string().nullable(),
     data_hash: z.string().nullable()
 });
 export type AccountState = z.infer<typeof accountState>;
+
+// AddressBookEntry
+export const addressBookEntry = z.object({
+    user_friendly: z.string()
+});
+export type AddressBookEntry = z.infer<typeof addressBookEntry>;
 
 // Wallet
 export const wallet = z.object({
@@ -100,7 +106,9 @@ export const masterchainInfo = z.object({
 export type MasterchainInfo = z.infer<typeof masterchainInfo>;
 
 // Blocks
-export const blocks = z.array(block);
+export const blocks = z.object({
+    blocks: z.array(block)
+});
 export type Blocks = z.infer<typeof blocks>;
 
 // MasterchainBlockShards
@@ -143,9 +151,7 @@ export type MessageInitState = z.infer<typeof messageInitState>;
 export const message = z.object({
     hash: z.string(),
     source: z.string().nullable(),
-    source_friendly: z.string().nullable(),
     destination: z.string().nullable(),
-    destination_friendly: z.string().nullable(),
     value: z.string().nullable(),
     fwd_fee: z.string().nullable(),
     ihr_fee: z.string().nullable(),
@@ -164,15 +170,12 @@ export type Message = z.infer<typeof message>;
 // Transaction
 export const transaction = z.object({
     account: z.string(),
-    account_friendly: z.string(),
     hash: z.string(),
     lt: z.string(),
     now: z.number(),
     orig_status: accountStatus,
     end_status: accountStatus,
     total_fees: z.string(),
-    account_state_hash_before: z.string(),
-    account_state_hash_after: z.string(),
     prev_trans_hash: z.string(),
     prev_trans_lt: z.string(),
     description: z.any(),
@@ -181,12 +184,15 @@ export const transaction = z.object({
     out_msgs: z.array(message),
     account_state_before: accountState.nullable(),
     account_state_after: accountState.nullable(),
-    trace_id: z.string().nullable()
+    mc_block_seqno: z.number().nullable()
 });
 export type Transaction = z.infer<typeof transaction>;
 
 // Transactions
-export const transactions = z.array(transaction);
+export const transactions = z.object({
+    transactions: z.array(transaction),
+    address_book: z.record(z.string(), addressBookEntry)
+});
 export type Transactions = z.infer<typeof transactions>;
 
 // TransactionTrace
@@ -202,7 +208,9 @@ export const traces = z.array(transactionTrace.nullable());
 export type Traces = z.infer<typeof traces>;
 
 // Messages
-export const messages = z.array(message);
+export const messages = z.object({
+    messages: z.array(message)
+});
 export type Messages = z.infer<typeof messages>;
 
 // NftCollection
@@ -218,7 +226,9 @@ export const nftCollection = z.object({
 export type NftCollection = z.infer<typeof nftCollection>;
 
 // NftCollections
-export const nftCollections = z.array(nftCollection);
+export const nftCollections = z.object({
+    nft_collections: z.array(nftCollection)
+});
 export type NftCollections = z.infer<typeof nftCollections>;
 
 // NftItem
@@ -237,7 +247,9 @@ export const nftItem = z.object({
 export type NftItem = z.infer<typeof nftItem>;
 
 // NftItems
-export const nftItems = z.array(nftItem);
+export const nftItems = z.object({
+    nft_items: z.array(nftItem)
+});
 export type NftItems = z.infer<typeof nftItems>;
 
 // NftTransfer
@@ -256,7 +268,9 @@ export const nftTransfer = z.object({
 });
 
 // NftTransfers
-export const nftTransfers = z.array(nftTransfer);
+export const nftTransfers = z.object({
+    nft_transfers: z.array(nftTransfer)
+});
 export type NftTransfers = z.infer<typeof nftTransfers>;
 
 // JettonMaster
@@ -274,7 +288,9 @@ export const jettonMaster = z.object({
 export type JettonMaster = z.infer<typeof jettonMaster>;
 
 // JettonMasters
-export const jettonMasters = z.array(jettonMaster);
+export const jettonMasters = z.object({
+    jetton_masters: z.array(jettonMaster)
+});
 export type JettonMasters = z.infer<typeof jettonMasters>;
 
 // JettonWallet
@@ -290,7 +306,9 @@ export const jettonWallet = z.object({
 export type JettonWallet = z.infer<typeof jettonWallet>;
 
 // JettonWallets
-export const jettonWallets = z.array(jettonWallet);
+export const jettonWallets = z.object({
+    jetton_wallets: z.array(jettonWallet)
+});
 export type JettonWallets = z.infer<typeof jettonWallets>;
 
 export const jettonTransfer = z.object({
@@ -311,7 +329,9 @@ export const jettonTransfer = z.object({
 export type JettonTransfer = z.infer<typeof jettonTransfer>;
 
 // JettonTransfers
-export const jettonTransfers = z.array(jettonTransfer);
+export const jettonTransfers = z.object({
+    jetton_transfers: z.array(jettonTransfer)
+});
 export type JettonTransfers = z.infer<typeof jettonTransfers>;
 
 // JettonBurn
@@ -328,7 +348,9 @@ export const jettonBurn = z.object({
 export type JettonBurn = z.infer<typeof jettonBurn>;
 
 // JettonBurns
-export const jettonBurns = z.array(jettonBurn);
+export const jettonBurns = z.object({
+    jetton_burns: z.array(jettonBurn)
+});
 export type JettonBurns = z.infer<typeof jettonBurns>;
 
 // TopAccountsByBalance

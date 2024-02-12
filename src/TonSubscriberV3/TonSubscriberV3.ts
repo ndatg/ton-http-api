@@ -109,7 +109,7 @@ export class TonSubscriberV3 extends EventEmitter {
                     });
                     await this.#storage.insertMasterchainBlock(i);
                     this.emit("block", {
-                        block: getBlock[0]
+                        block: getBlock.blocks[0]
                     });
                 }
 

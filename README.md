@@ -8,6 +8,10 @@ The lightweight TON typescript library includes api, subscribers, and clients fo
 
 Go to the [documentation](https://ndatg.github.io/ton-http-api/) for detailed information.
 
+## Migration
+
+If you need an older version of the library, use the [migrate](https://github.com/ndatg/ton-http-api/tree/migrate) branch.
+
 ## Components
 
 | Component             | Status                                                                |
@@ -89,6 +93,8 @@ console.log(data);
 
 `TonClientV2` works in the same way as `TonClientV3`, but uses `TonHttpApiV2`.
 
+You can use `client.api` to work with api methods.
+
 For example, let's do a highload wallet deploy!
 
 ```bash
@@ -102,7 +108,7 @@ import { mnemonicToPrivateKey } from "@ton/crypto";
 import { internal } from "@ton/core";
 
 const client = new TonClientV3({
-    endpoint: "https://testnet.toncenter.com/",
+    endpoint: "https://toncenter.com/",
     apiKey: "", // optional
 });
 
@@ -175,9 +181,9 @@ subscriber.on("block", async (args: { block: SchemaV3.Block }) => {
                     limit: 256,
                     offset
                 });
-                transactions = [...transactions, ...data];
+                transactions = [...transactions, ...data.transactions];
 
-                if (data.length < 256) {
+                if (data.transactions.length < 256) {
                     stopped = true;
                     break;
                 }
