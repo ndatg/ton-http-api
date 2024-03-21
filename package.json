@@ -1,6 +1,6 @@
 {
   "name": "ton-http-api",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "The lightweight TON Typescript Library",
   "main": "dist/index.js",
   "keywords": [
@@ -34,7 +34,7 @@
     "url": "https://github.com/ndatg/ton-http-api/issues"
   },
   "dependencies": {
-    "@ton/core": "^0.56.2",
+    "@ton/core": "^0.55.0",
     "axios": "^1.6.2",
     "events": "^3.3.0",
     "ioredis": "^5.3.2",

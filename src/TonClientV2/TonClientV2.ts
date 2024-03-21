@@ -114,6 +114,7 @@ function createProvider(client: TonClientV2, address: Address, init: StateInit |
                 state: storage
             };
         },
+
         async get(method, stack) {
             const data = await client.callGetMethod(address, method, stack);
 
@@ -122,6 +123,7 @@ function createProvider(client: TonClientV2, address: Address, init: StateInit |
                 stack: data.stack
             };
         },
+
         async external(message) {
             // resolve init
             let neededInit: StateInit | null = null;
@@ -143,6 +145,7 @@ function createProvider(client: TonClientV2, address: Address, init: StateInit |
 
             await client.api.sendBoc(boc.toString("base64"));
         },
+
         async internal(via, message) {
             // resolve init
             let neededInit: StateInit | null = null;
