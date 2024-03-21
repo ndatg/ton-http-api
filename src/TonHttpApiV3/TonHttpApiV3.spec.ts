@@ -2,7 +2,7 @@ import { TonHttpApiV3 } from "./TonHttpApiV3";
 
 describe("TonHttpApiV3", () => {
     const api = new TonHttpApiV3({
-        endpoint: "https://stage.toncenter.com/",
+        endpoint: "https://toncenter.com/",
         apiKey: ""
     });
 
