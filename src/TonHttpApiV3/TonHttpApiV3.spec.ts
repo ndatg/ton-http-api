@@ -33,7 +33,7 @@ describe("TonHttpApiV3", () => {
 
     it("should get transactions", async () => {
         const data = await api.getTransactions({
-            include_account: "UQDqgkqefbZu_fZ7-8eib6h3vLubZxQfu-KRi829HBBUGzWm"
+            exclude_account: ["Ef8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAU", "Ef8zMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM0vF"],
         });
         console.log(data);
     });
@@ -75,7 +75,7 @@ describe("TonHttpApiV3", () => {
 
     it("should get nft collections", async () => {
         const data = await api.getNftCollections({
-            collection_address: "EQCA14o1-VWhS2efqoh_9M1b_A9DtKTuoqfmkn83AbJzwnPi"
+            collection_address: "EQDmkj65Ab_m0aZaW8IpKw4kYqIgITw_HRstYEkVQ6NIYCyW"
         });
         console.log(data);
     });
@@ -90,7 +90,7 @@ describe("TonHttpApiV3", () => {
 
     it("should get nft transfers", async () => {
         const data = await api.getNftTransfers({
-            collection_address: "EQCA14o1-VWhS2efqoh_9M1b_A9DtKTuoqfmkn83AbJzwnPi"
+            collection_address: "EQDmkj65Ab_m0aZaW8IpKw4kYqIgITw_HRstYEkVQ6NIYCyW"
         });
         console.log(data);
     });
