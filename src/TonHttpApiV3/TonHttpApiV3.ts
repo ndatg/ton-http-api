@@ -109,12 +109,12 @@ export class TonHttpApiV3 {
 
     /**
      * Get transactions by specified filters.
-     * @param [optional={ workchain, shard, seqno, account, exclude_account, hash, lt,
+     * @param [optional={ workchain, shard, seqno, account, include_account, exclude_account, hash, lt,
      * start_utime, end_utime, start_lt, end_lt, limit, offset, sort }]
      */
     async getTransactions(optional?: {
-        workchain?: number, shard?: string, seqno?: number, account?: string, exclude_account?: string, hash?: string,
-        lt?: string, start_utime?: string, end_utime?: string, start_lt?: string, end_lt?: string, limit?: number,
+        workchain?: number, shard?: string, seqno?: number, account?: string, include_account?: string, exclude_account?: string,
+        hash?: string, lt?: string, start_utime?: string, end_utime?: string, start_lt?: string, end_lt?: string, limit?: number,
         offset?: number, sort?: "asc" | "desc"
     }) {
         return this.get(
@@ -266,10 +266,10 @@ export class TonHttpApiV3 {
 
     /**
      * Get NFT items.
-     * @param [optional={ address, collection_address, owner_address, limit, offset }]
+     * @param [optional={ address, collection_address, owner_address, index, limit, offset }]
      */
     async getNftItems(optional?: {
-        address?: string, collection_address?: string, owner_address?: string, limit?: number, offset?: number
+        address?: string, collection_address?: string, owner_address?: string, index?: string, limit?: number, offset?: number
     }) {
         return this.get(
             "/api/v3/nft/items",

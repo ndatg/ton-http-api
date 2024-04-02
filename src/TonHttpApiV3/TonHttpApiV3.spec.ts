@@ -32,7 +32,9 @@ describe("TonHttpApiV3", () => {
     });
 
     it("should get transactions", async () => {
-        const data = await api.getTransactions();
+        const data = await api.getTransactions({
+            include_account: "UQDqgkqefbZu_fZ7-8eib6h3vLubZxQfu-KRi829HBBUGzWm"
+        });
         console.log(data);
     });
 
@@ -80,7 +82,8 @@ describe("TonHttpApiV3", () => {
 
     it("should get nft items", async () => {
         const data = await api.getNftItems({
-            collection_address: "EQCA14o1-VWhS2efqoh_9M1b_A9DtKTuoqfmkn83AbJzwnPi"
+            collection_address: "EQDmkj65Ab_m0aZaW8IpKw4kYqIgITw_HRstYEkVQ6NIYCyW",
+            index: "72909"
         });
         console.log(data);
     });

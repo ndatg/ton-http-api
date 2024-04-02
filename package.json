@@ -1,6 +1,6 @@
 {
   "name": "ton-http-api",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "The lightweight TON Typescript Library",
   "main": "dist/index.js",
   "keywords": [
