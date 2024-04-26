@@ -14,10 +14,10 @@ export class TonRedisBlockStorageV3 implements TonBlockStorageV3 {
      * @param seqno
      */
     async insertMasterchainBlock(seqno: number) {
-        if (await this.#redis.hexists("ton:masterchain_blocks", `${seqno}`)) {
+        if (await this.#redis.hexists("ton:masterchain:blocks", `${seqno}`)) {
             throw Error(`masterchain block already exists! seqno: ${seqno}`);
         }
-        await this.#redis.hset("ton:masterchain_blocks", {
+        await this.#redis.hset("ton:masterchain:blocks", {
             [seqno]: 1
         });
     }
@@ -26,7 +26,7 @@ export class TonRedisBlockStorageV3 implements TonBlockStorageV3 {
      * Get the last inserted masterchain block from the masterchain hashtable.
      */
     async getLastMasterchainBlock() {
-        const masterchainBlocks = await this.#redis.hgetall("ton:masterchain_blocks");
+        const masterchainBlocks = await this.#redis.hgetall("ton:masterchain:blocks");
         const data = Object.keys(masterchainBlocks)
             .map(x => Number(x))
             .sort((a, b) => b - a);
@@ -37,6 +37,6 @@ export class TonRedisBlockStorageV3 implements TonBlockStorageV3 {
      * Clean up the hashtable.
      */
     async clean() {
-        await this.#redis.del("ton:masterchain_blocks");
+        await this.#redis.del("ton:masterchain:blocks");
     }
 }
