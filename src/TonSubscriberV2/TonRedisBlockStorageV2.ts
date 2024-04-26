@@ -20,11 +20,11 @@ export class TonRedisBlockStorageV2 implements TonBlockStorageV2 {
                 continue;
             }
 
-            if (await this.#redis.hexists("shardchainBlocks", `${workchain}_${shard}_${seqno}`)) {
+            if (await this.#redis.hexists("ton:shardchain_blocks", `${workchain}_${shard}_${seqno}`)) {
                 continue;
             }
 
-            await this.#redis.hset("shardchainBlocks", {
+            await this.#redis.hset("ton:shardchain_blocks", {
                 [`${workchain}_${shard}_${seqno}`]: 0
             });
         }
@@ -35,10 +35,10 @@ export class TonRedisBlockStorageV2 implements TonBlockStorageV2 {
      * @param seqno
      */
     async insertMasterchainBlock(seqno: number) {
-        if (await this.#redis.hexists("masterchainBlocks", `${seqno}`)) {
+        if (await this.#redis.hexists("ton:masterchain_blocks", `${seqno}`)) {
             throw Error(`masterchain block already exists! seqno: ${seqno}`);
         }
-        await this.#redis.hset("masterchainBlocks", {
+        await this.#redis.hset("ton:masterchain_blocks", {
             [seqno]: 1
         });
     }
@@ -47,7 +47,7 @@ export class TonRedisBlockStorageV2 implements TonBlockStorageV2 {
      * Get the last inserted masterchain block from the masterchain hashtable.
      */
     async getLastMasterchainBlock() {
-        const masterchainBlocks = await this.#redis.hgetall("masterchainBlocks");
+        const masterchainBlocks = await this.#redis.hgetall("ton:masterchain_blocks");
         const data = Object.keys(masterchainBlocks)
             .map(x => Number(x))
             .sort((a, b) => b - a);
@@ -58,8 +58,8 @@ export class TonRedisBlockStorageV2 implements TonBlockStorageV2 {
      * Get the last unprocessed shardchain block from the shardchains hashtable.
      */
     async getUnprocessedShardchainBlock() {
-        const shardchainBlocks = await this.#redis.hgetall("shardchainBlocks");
-        console.log(shardchainBlocks);
+        const shardchainBlocks = await this.#redis.hgetall("ton:shardchain_blocks");
+        // console.log(shardchainBlocks);
         for (const key in shardchainBlocks) {
             if (shardchainBlocks[key] !== undefined && !parseInt(shardchainBlocks[key])) {
                 const data = key.split("_");
@@ -82,13 +82,13 @@ export class TonRedisBlockStorageV2 implements TonBlockStorageV2 {
      * @param prevShardBlocks
      */
     async setShardchainBlockProcessed(workchain: number, shard: string, seqno: number, prevShardBlocks: BlockIdExt[]) {
-        if (!await this.#redis.hexists("shardchainBlocks", `${workchain}_${shard}_${seqno}`)) {
+        if (!await this.#redis.hexists("ton:shardchain_blocks", `${workchain}_${shard}_${seqno}`)) {
             throw Error(
                 `shardchain not found! workchain: ${workchain} / shard: ${shard} / seqno: ${seqno}`
             );
         }
 
-        await this.#redis.hset("shardchainBlocks", {
+        await this.#redis.hset("ton:shardchain_blocks", {
             [`${workchain}_${shard}_${seqno}`]: 1
         });
         await this.insertShardchainBlocks(prevShardBlocks);
@@ -98,7 +98,7 @@ export class TonRedisBlockStorageV2 implements TonBlockStorageV2 {
      * Clean up the hashtables.
      */
     async clean() {
-        await this.#redis.del("masterchainBlocks");
-        await this.#redis.del("shardchainBlocks");
+        await this.#redis.del("ton:masterchain_blocks");
+        await this.#redis.del("ton:shardchain_blocks");
     }
 }

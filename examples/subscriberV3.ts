@@ -2,18 +2,19 @@ import {
     TonHttpApiV3,
     TonSubscriberV3,
     TonMemoryBlockStorageV3,
+    TonRedisBlockStorageV3,
     SchemaV3
 } from "../src";
 import Logger from "pino";
 
 const main = async () => {
     const api = new TonHttpApiV3({
-        endpoint: "https://stage.toncenter.com/",
+        endpoint: "https://toncenter.com/",
         apiKey: ""
     });
 
     const storage = new TonMemoryBlockStorageV3();
-    // const storage = new TonRedisBlockStorage("redis://:password@127.0.0.1:6379/0");
+    // const storage = new TonRedisBlockStorageV3("redis://:password@127.0.0.1:6379/0");
 
     const logger = Logger({
         transport: {

@@ -333,7 +333,7 @@ export const message = z.object({
     created_lt: z.string(),
     body_hash: z.string(),
     msg_data: messageData,
-    message: z.string()
+    message: z.string().optional()
 });
 export type Message = z.infer<typeof message>;
 

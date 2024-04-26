@@ -14,7 +14,7 @@ const main = async () => {
     });
 
     const storage = new TonMemoryBlockStorageV2();
-    // const storage = new TonRedisBlockStorage("redis://:password@127.0.0.1:6379/0");
+    // const storage = new TonRedisBlockStorageV2("redis://:password@127.0.0.1:6379/0");
 
     const logger = Logger({
         transport: {
