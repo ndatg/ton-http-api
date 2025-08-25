@@ -2,6 +2,15 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
+> **⚠️ DEPRECATED**: This package has been deprecated and is no longer maintained. Please migrate to the new package: [**toncenter-js**](https://github.com/ndatg/toncenter-js)
+>
+> **Migration Guide**: The new `toncenter-js` package provides the same functionality with improved features, better TypeScript support, and active maintenance. Simply replace `ton-http-api` with `toncenter-js` in your dependencies.
+>
+> ```bash
+> npm uninstall ton-http-api
+> npm install toncenter-js
+> ```
+
 The lightweight TON typescript library includes api, subscribers, and clients for interacting with smart contracts.
 
 ## Documentation

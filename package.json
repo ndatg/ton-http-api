@@ -1,7 +1,8 @@
 {
   "name": "ton-http-api",
-  "version": "2.0.8",
-  "description": "The lightweight TON Typescript Library",
+  "version": "2.0.9",
+  "description": "[DEPRECATED] The lightweight TON Typescript Library - Please use 'toncenter-js' instead",
+  "deprecated": "This package has been deprecated. Please use 'toncenter-js' instead: https://www.npmjs.com/package/toncenter-js",
   "main": "dist/index.js",
   "keywords": [
     "ton",
@@ -13,18 +14,22 @@
     "crypto",
     "blockchain",
     "typescript",
-    "nodejs"
+    "nodejs",
+    "deprecated",
+    "toncenter-js"
   ],
   "author": "ndatg",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "postinstall.js"
   ],
   "scripts": {
     "docs": "rm -fr docs && typedoc src/index.ts",
     "build": "rm -fr dist && tsc --declaration",
     "release": "npm run build && npm publish",
-    "test": "jest --verbose --runInBand"
+    "test": "jest --verbose --runInBand",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
